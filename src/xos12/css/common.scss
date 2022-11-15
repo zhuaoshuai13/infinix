@@ -1,0 +1,45 @@
+$imgPath: "https://infinixmob.mez100.com.cn/fileadmin/assets/v/xos/xos12/images";
+$fontPath: "https://infinixmob.mez100.com.cn/fileadmin/assets/fonts/DINPro";
+
+@font-face {
+  font-family: DINProBlack;
+  src: url($fontPath + "/DINPro-Black.otf") format("truetype");
+}
+
+@font-face {
+  font-family: DINProBold;
+  src: url($fontPath + "/DINPro-Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: DINProMedium;
+  src: url($fontPath + "/DINPro-Medium.otf") format("truetype");
+}
+
+@font-face {
+  font-family: DINProLight;
+  src: url($fontPath + "/DINPro-Light.otf") format("truetype");
+}
+
+@font-face {
+  font-family: DINProRegular;
+  src: url($fontPath + "/DINPro-Regular.otf") format("truetype");
+}
+
+@mixin bgImage($url, $contain: false) {
+  background-image: url(#{$imgPath}#{$url});
+  background-size: cover;
+  @if $contain {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+@mixin centerPosition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}

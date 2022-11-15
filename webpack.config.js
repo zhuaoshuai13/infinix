@@ -1,9 +1,10 @@
-const projectName = "xos12";
+const projectName = "hot";
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
+// const StylelintPlugin = require("stylelint-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
@@ -18,11 +19,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /pc.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           // 将 CSS 转化成 CommonJS 模块
           "css-loader",
+          {
+            loader: "px2rem-loader",
+            options: {
+              remUnit: 100, // 适合750的设计稿 1rem = 75px
+              remPrecision: 5, // px转rem小数点保留的位置
+            },
+          },
           // 将 Sass 编译成 CSS
           "sass-loader",
           //   兼容性
@@ -37,7 +45,60 @@ module.exports = {
           },
         ],
       },
-
+      {
+        test: /mb.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          // 将 CSS 转化成 CommonJS 模块
+          "css-loader",
+          {
+            loader: "px2rem-loader",
+            options: {
+              remUnit: 200, // 适合750的设计稿 1rem = 75px
+              remPrecision: 5, // px转rem小数点保留的位置
+            },
+          },
+          // 将 Sass 编译成 CSS
+          "sass-loader",
+          //   兼容性
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                ident: "postcss",
+                plugins: [require("postcss-preset-env")()],
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /common.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          // 将 CSS 转化成 CommonJS 模块
+          "css-loader",
+          {
+            loader: "px2rem-loader",
+            options: {
+              remUnit: 100, // 适合750的设计稿 1rem = 75px
+              remPrecision: 5, // px转rem小数点保留的位置
+            },
+          },
+          // 将 Sass 编译成 CSS
+          "sass-loader",
+          //   兼容性
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                ident: "postcss",
+                plugins: [require("postcss-preset-env")()],
+              },
+            },
+          },
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -78,12 +139,14 @@ module.exports = {
 
     new MiniCssExtractPlugin({
       // 对输出的css文件进行重命名
-      filename: `css/1${projectName}.built.css`,
+      filename: `css/${projectName}.built.css`,
     }),
 
     new CssMinimizerPlugin(),
 
     new ESLintPlugin({ fix: true }),
+
+    // new StylelintPlugin({ fix: true }),
   ],
 
   devServer: {

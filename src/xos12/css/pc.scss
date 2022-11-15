@@ -1,0 +1,9 @@
+@import url("./common.scss");
+
+.cc {
+  width: 200px;
+  height: 200px;
+  font-size: 200px;
+  @include centerPosition;
+  @include bgImage("aaa", true);
+}
