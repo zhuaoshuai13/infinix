@@ -1,5 +1,6 @@
-import "../css/pc.scss";
-import "../css/mb.scss";
+/* stylelint-disable */
+import "../css/pc.css";
+// import "../css/mb.scss";
 
 const controller = new ScrollMagic.Controller({
   globalSceneOptions: {
